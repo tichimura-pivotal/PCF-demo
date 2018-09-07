@@ -25,6 +25,8 @@ if [ ! -d "$inputDir" ]; then
   error_and_exit "missing input directory: $inputDir"
 fi
 
+set -e
 cd $inputDir
-
+rm -rf ~/.m2
+ln -fs $(pwd)/m2 ~/.m2
 ./mvnw clean test
