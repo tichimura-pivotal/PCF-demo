@@ -1,11 +1,6 @@
 #!/bin/sh
 
-inputDir=  outputDir=  artifactId=  packaging=  inputManifest=
-
-# optional2
-hostname=$CF_MANIFEST_HOST # default to env variable from pipeline
-
-echo "hello ut test"
+inputDir=  outputDir=  versionFile=  artifactId=  packaging=
 
 while [ $# -gt 0 ]; do
   case $1 in
@@ -17,6 +12,10 @@ while [ $# -gt 0 ]; do
       outputDir=$2
       shift
       ;;
+    -v | --version-file )
+      versionFile=$2
+      shift
+      ;;
     -a | --artifactId )
       artifactId=$2
       shift
@@ -25,14 +24,6 @@ while [ $# -gt 0 ]; do
       packaging=$2
       shift
       ;;
-     f | --input-manifest )
-     inputManifest=$2
-     shift
-     ;;
-     -n | --hostname )
-     hostname=$2
-     shift
-     ;;
     * )
       echo "Unrecognized option: $1" 1>&2
       exit 1
@@ -52,17 +43,17 @@ fi
 if [ ! -d "$outputDir" ]; then
   error_and_exit "missing output directory: $outputDir"
 fi
+if [ ! -f "$versionFile" ]; then
+  error_and_exit "missing version file: $versionFile"
+fi
 if [ -z "$artifactId" ]; then
   error_and_exit "missing artifactId!"
 fi
 if [ -z "$packaging" ]; then
   error_and_exit "missing packaging!"
 fi
-if [ ! -f "$inputManifest" ]; then
-  error_and_exit "missing input manifest: $inputManifest"
-fi
 
-version="0.1"
+version=`cat $versionFile`
 artifactName="${artifactId}-${version}.${packaging}"
 
 cd $inputDir
@@ -71,17 +62,3 @@ cd $inputDir
 # Copy war file to concourse output folder
 cd ..
 cp $inputDir/target/$artifactName $outputDir/$artifactName
-
-# copy the manifest to the output directory and process it
-outputManifest=$outputDir/manifest.yml
-
-cp $inputManifest $outputManifest
-
-# the path in the manifest is always relative to the manifest itself
-sed -i -- "s|path: .*$|path: $artifactName|g" $outputManifest
-
-if [ ! -z "$hostname" ]; then
- sed -i "s|host: .*$|host: ${hostname}|g" $outputManifest
-fi
-
-cat $outputManifest
