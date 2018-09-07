@@ -15,7 +15,7 @@ inputs:
   - name: pcfdemo
 
 caches:
-  - name: pcfdemo/m2
+  - path: pcfdemo/m2
 
 run:
   path: pcfdemo/ci/tasks/unit.sh
