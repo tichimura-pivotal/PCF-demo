@@ -25,6 +25,7 @@ run:
   args: [
     --input-dir, pcfdemo,
     --output-dir, build,
+    --input-manifest, pcfdemo/manifest.yml,
     --artifactId, pcf-demo,
     --packaging, war
   ]  
