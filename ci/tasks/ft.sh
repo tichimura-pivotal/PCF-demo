@@ -2,7 +2,7 @@
 
 inputDir=  outputDir=  artifactId=  packaging=  inputManifest=
 
-# optional2
+# optional
 hostname=$CF_MANIFEST_HOST # default to env variable from pipeline
 
 echo "hello ut test"
