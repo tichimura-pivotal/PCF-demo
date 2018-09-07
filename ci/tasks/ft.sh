@@ -2,6 +2,9 @@
 
 inputDir=  outputDir=  artifactId=  packaging=  inputManifest=
 
+# optional
+hostname=$CF_MANIFEST_HOST # default to env variable from pipeline
+
 while [ $# -gt 0 ]; do
   case $1 in
     -i | --input-dir )
@@ -22,6 +25,10 @@ while [ $# -gt 0 ]; do
       ;;
      f | --input-manifest )
      inputManifest=$2
+     shift
+     ;;
+     -n | --hostname )
+     hostname=$2
      shift
      ;;
     * )
