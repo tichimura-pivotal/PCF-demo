@@ -21,7 +21,7 @@ outputs:
   - name: build
 
 run:
-  path: pcfdemo/ci/tasks/f2t.sh
+  path: pcfdemo/ci/tasks/ft.sh
   args: [
     --input-dir, pcfdemo,
     --output-dir, build,
