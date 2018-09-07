@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # required
-inputDir=  outputDir=  inputManifest=  versionFile=  artifactId=  packaging=
+inputDir=  outputDir=  inputManifest=  artifactId=  packaging=
 
 # optional
 hostname=$CF_MANIFEST_HOST # default to env variable from pipeline
@@ -14,10 +14,6 @@ while [ $# -gt 0 ]; do
       ;;
     -o | --output-dir )
       outputDir=$2
-      shift
-      ;;
-    -v | --version-file )
-      versionFile=$2
       shift
       ;;
     -f | --input-manifest )
@@ -55,9 +51,6 @@ fi
 if [ ! -d "$outputDir" ]; then
   error_and_exit "missing output directory: $outputDir"
 fi
-if [ ! -f "$versionFile" ]; then
-  error_and_exit "missing version file: $versionFile"
-fi
 if [ ! -f "$inputManifest" ]; then
   error_and_exit "missing input manifest: $inputManifest"
 fi
@@ -69,7 +62,7 @@ if [ -z "$packaging" ]; then
 fi
 
 # copy the war file to the output directory
-version=`cat $versionFile`
+version="0.1"
 artifactName="${artifactId}-${version}.${packaging}"
 
 inputArtifact="$inputDir/$artifactName"
