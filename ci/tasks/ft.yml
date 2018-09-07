@@ -16,9 +16,15 @@ inputs:
 
 caches:
   - path: pcfdemo/m2
+  
+outputs:
+  - name: build
 
 run:
   path: pcfdemo/ci/tasks/ft.sh
   args: [
-    --input-dir, pcfdemo
-  ]
+    --input-dir, pcfdemo,
+    --output-dir, build,
+    --artifactId, pcf-demo,
+    --packaging, war
+  ]  
