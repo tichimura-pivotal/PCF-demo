@@ -12,8 +12,6 @@ params:
 
 inputs:
   - name: pcfdemo
-  - name: candidate-release
-  - name: version
 
 outputs:
   - name: prepare-integration
@@ -21,9 +19,8 @@ outputs:
 run:
   path: pcfdemo/ci/tasks/prepare-integration.sh
   args: [
-    --input-dir, candidate-release,
+    --input-dir, pcfdemo,
     --output-dir, prepare-integration,
-    --version-file, version/number,
     --input-manifest, pcfdemo/manifest.yml,
     --artifactId, pcf-demo,
     --packaging, war
