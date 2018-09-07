@@ -5,6 +5,8 @@ inputDir=  outputDir=  artifactId=  packaging=  inputManifest=
 # optional
 hostname=$CF_MANIFEST_HOST # default to env variable from pipeline
 
+echo "hello ut test"
+
 while [ $# -gt 0 ]; do
   case $1 in
     -i | --input-dir )
